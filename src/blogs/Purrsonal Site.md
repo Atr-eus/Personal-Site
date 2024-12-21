@@ -1,5 +1,6 @@
 ---
 title: 'Purrsonal Site!'
+description: 'meow'
 date: '2024-12-21'
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: 'Hello, world!'
+description: 'Just another blog!'
 date: '2024-12-20'
 ---
 
