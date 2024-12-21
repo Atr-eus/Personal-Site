@@ -11,11 +11,15 @@ export default {
       boxShadow: {
         'xs': '3px 3px rgba(137, 180, 250, 1)'
       },
+      backgroundColor: {
+        'dk': '#14161f',
+        'lt': '#1e2229'
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };

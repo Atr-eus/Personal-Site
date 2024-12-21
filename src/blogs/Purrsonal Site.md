@@ -1,6 +1,6 @@
 ---
 title: 'Purrsonal Site!'
-description: 'meow'
+description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna sapien, porta sed cursus et, sagittis at risus. Nam ut nisl odio. Curabitur nibh lectus, molestie at tincidunt non, fermentum ut augue. Nunc sit amet facilisis lorem. Sed et vestibulum sem. Aliquam erat volutpat. Fusce rhoncus urna ac sapien egestas.'
 date: '2024-12-21'
 ---
 
@@ -8,6 +8,8 @@ Nothing much to see here, it's just a test blog.
 
 - Although, I hope I can write something more **meaningful** eventually.
 - I'm not *that* into writing or anything, but maybe I'll find something interesting once in a while.
+
+![some image idk](/blog/gruvbox_astro.jpg)
 
 # AoC day 12 solution.
 
