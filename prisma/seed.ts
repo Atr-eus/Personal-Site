@@ -1,7 +1,8 @@
-import { PrismaClient } from "@/generated/prisma/client";
+import { PrismaClient } from "../src/generated/prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
+  console.log("HELLO FROM SEED.TS");
   const english = await prisma.language.upsert({
     where: { code: "en" },
     update: {},

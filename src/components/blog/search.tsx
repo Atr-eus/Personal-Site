@@ -3,10 +3,11 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Search, X } from "lucide-react";
+import { Input } from "../ui/input";
 
-interface BlogSearchProps {
+type BlogSearchProps = {
   initialQuery?: string;
-}
+};
 
 export function BlogSearch({ initialQuery = "" }: BlogSearchProps) {
   const router = useRouter();
@@ -39,17 +40,17 @@ export function BlogSearch({ initialQuery = "" }: BlogSearchProps) {
     <div className="relative">
       <div className="relative flex items-center">
         <Search className="absolute left-3 text-muted-foreground" size={20} />
-        <input
+        <Input
           type="text"
           placeholder="Search articles..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full pl-10 pr-10 py-2 border border-border rounded-lg bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+          className="w-full pl-10 pr-10 py-2"
         />
         {query && (
           <button
             onClick={handleClear}
-            className="absolute right-3 text-muted-foreground hover:text-foreground transition-colors"
+            className="absolute right-3"
             aria-label="Clear search"
           >
             <X size={20} />

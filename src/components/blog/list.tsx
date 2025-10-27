@@ -1,80 +1,46 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 
-interface BlogPost {
-  id: string;
-  title: string;
-  titleJp?: string;
-  excerpt: string;
-  excerptJp?: string;
-  date: string;
-  readTime: number;
-  lang: "en" | "jp";
-}
-
-interface BlogListProps {
-  lang: "en" | "jp" | "all";
+type BlogListProps = {
+  lang: string;
   searchQuery?: string;
-}
-
-function getExcerpt(content: string, maxLength = 150) {
-  const plain = content.replace(/[#_*~`>]/g, "");
-  return plain.length > maxLength ? plain.slice(0, maxLength) + "…" : plain;
-}
-
-function estimateReadTime(content: string) {
-  const words = content.split(/\s+/).length;
-  return Math.max(1, Math.ceil(words / 200));
-}
+};
 
 export async function BlogList({ lang, searchQuery = "" }: BlogListProps) {
   let posts = await prisma.post.findMany({
     where: {
       published: true,
-      ...(lang !== "all"
-        ? {
-          language: {
-            code: lang,
-          },
-        }
-        : {}),
     },
     include: {
       language: true,
-      tags: { include: { tag: true } },
+      tags: {
+        include: {
+          tag: true,
+        },
+      },
     },
-    orderBy: { created_at: "desc" },
+    orderBy: {
+      created_at: "desc",
+    },
   });
 
-  const mappedPosts: BlogPost[] = posts.map((post) => ({
-    id: post.id,
-    title: post.title,
-    titleJp: post.language.code === "ja" ? post.title : undefined,
-    excerpt: getExcerpt(post.content_md),
-    excerptJp:
-      post.language.code === "ja" ? getExcerpt(post.content_md) : undefined,
-    date: post.created_at.toISOString(),
-    readTime: estimateReadTime(post.content_md),
-    lang: post.language.code === "ja" ? "jp" : "en",
-  }));
+  // Filter by language
+  if (lang !== "all") {
+    posts = posts.filter((post) => post.language.code === lang);
+  }
 
-  const filteredPosts = searchQuery
-    ? mappedPosts.filter((post) => {
-      const q = searchQuery.toLowerCase();
-      const titleEn = post.title.toLowerCase();
-      const titleJp = (post.titleJp || "").toLowerCase();
-      const excerptEn = post.excerpt.toLowerCase();
-      const excerptJp = (post.excerptJp || "").toLowerCase();
-      return (
-        titleEn.includes(q) ||
-        titleJp.includes(q) ||
-        excerptEn.includes(q) ||
-        excerptJp.includes(q)
-      );
-    })
-    : mappedPosts;
+  // Filter by search query
+  if (searchQuery) {
+    const query = searchQuery.toLowerCase();
+    posts = posts.filter((post) => {
+      const titleMatch = post.title.toLowerCase().includes(query);
+      const summaryMatch = post.summary?.toLowerCase().includes(query) || false;
+      const contentMatch = post.content_md.toLowerCase().includes(query);
+      return titleMatch || summaryMatch || contentMatch;
+    });
+  }
 
-  if (filteredPosts.length === 0) {
+  if (posts.length === 0) {
     return (
       <div className="text-center py-12">
         <p className="text-muted-foreground">No articles found</p>
@@ -84,36 +50,63 @@ export async function BlogList({ lang, searchQuery = "" }: BlogListProps) {
 
   return (
     <div className="space-y-8">
-      {filteredPosts.map((post) => {
-        const formattedDate = new Date(post.date).toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        });
+      {posts.map((post) => {
+        const formattedDate = new Date(post.created_at).toLocaleDateString(
+          "en-US",
+          {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          },
+        );
+
+        // Estimate read time (roughly 200 words per minute)
+        const wordCount = post.content_md.split(/\s+/).length;
+        const readTime = Math.ceil(wordCount / 200);
 
         return (
           <article
             key={post.id}
             className="border-b border-border pb-8 last:border-b-0"
           >
-            <Link href={`/blog/${post.id}`} className="group">
+            <Link href={`/blog/${post.slug}`} className="group">
               <h2 className="text-2xl font-semibold text-foreground group-hover:text-primary transition-colors mb-2">
-                {post.lang === "jp" ? post.titleJp || post.title : post.title}
+                {post.title}
               </h2>
             </Link>
             <p className="text-muted-foreground mb-4 line-clamp-2">
-              {post.lang === "jp"
-                ? post.excerptJp || post.excerpt
-                : post.excerpt}
+              {post.summary || post.content_md.substring(0, 150) + "..."}
             </p>
-            <div className="flex items-center gap-4 text-sm text-muted-foreground">
-              <time dateTime={post.date}>{formattedDate}</time>
+            <div className="flex items-center gap-4 text-sm text-muted-foreground flex-wrap">
+              <time dateTime={post.created_at.toISOString()}>
+                {formattedDate}
+              </time>
               <span>·</span>
-              <span>{post.readTime} min read</span>
+              <span>{readTime} min read</span>
               <span>·</span>
               <span className="text-xs px-2 py-1 rounded bg-accent text-accent-foreground">
-                {post.lang === "jp" ? "日本語" : "English"}
+                {post.language.name}
               </span>
+              {post.tags.length > 0 && (
+                <>
+                  <span>·</span>
+                  <div className="flex gap-2">
+                    {post.tags.slice(0, 2).map((postTag) => (
+                      <span
+                        key={postTag.tag.id}
+                        className="text-xs px-2 py-1 rounded bg-secondary text-secondary-foreground"
+                      >
+                        {postTag.tag.name}
+                      </span>
+                    ))}
+                    {post.tags.length > 2 && (
+                      <span className="text-xs px-2 py-1 rounded bg-secondary text-secondary-foreground">
+                        +{post.tags.length - 2}
+                      </span>
+                    )}
+                  </div>
+                </>
+              )}
             </div>
           </article>
         );

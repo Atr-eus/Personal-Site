@@ -9,9 +9,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-interface BlogFilterProps {
+type BlogFilterProps = {
   currentLang: string;
-}
+};
 
 export function BlogFilter({ currentLang }: BlogFilterProps) {
   const router = useRouter();

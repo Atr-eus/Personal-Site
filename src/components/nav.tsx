@@ -19,7 +19,6 @@ export function Navigation() {
     <nav className="border-b border-border bg-background sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* logo */}
           <Link
             href="/"
             className="text-lg font-semibold text-foreground hover:text-muted-foreground transition-colors"
@@ -27,7 +26,6 @@ export function Navigation() {
             Portfolio
           </Link>
 
-          {/* desktop nav */}
           <div className="hidden md:flex gap-8 items-center">
             <Link
               href="/"
@@ -64,7 +62,6 @@ export function Navigation() {
             )}
           </div>
 
-          {/* mobile hamburger menu */}
           <div className="md:hidden flex items-center gap-2">
             {mounted && (
               <button
@@ -85,7 +82,6 @@ export function Navigation() {
           </div>
         </div>
 
-        {/* mobile nav */}
         {isOpen && (
           <div className="md:hidden pb-4 space-y-2">
             <Link

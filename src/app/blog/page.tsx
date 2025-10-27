@@ -3,9 +3,9 @@ import { BlogList } from "@/components/blog/list";
 import { BlogSearch } from "@/components/blog/search";
 import { BlogFilter } from "@/components/blog/filter";
 
-interface BlogPageProps {
+type BlogPageProps = {
   searchParams: Promise<{ q?: string; lang?: "all" | "en" | "jp" }>;
-}
+};
 
 // export const metadata = {
 //   title: "Blog - Portfolio",

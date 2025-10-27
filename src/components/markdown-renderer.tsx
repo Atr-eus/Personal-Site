@@ -57,7 +57,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
               className="text-base leading-relaxed text-foreground mb-4"
             />
           ),
-          code: ({ node, inline, ...props }) => {
+          code: ({ node, inline, ...props }: any) => {
             if (inline) {
               return (
                 <code
