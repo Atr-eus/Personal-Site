@@ -1,0 +1,18 @@
+export default function About() {
+  return (
+    <pre className="whitespace-pre-wrap font-mono text-sm p-4 rounded-xl">
+      {`-----BEGIN PGP PUBLIC KEY BLOCK-----
+mDMEZ83D6BYJKwYBBAHaRw8BAQdATVtbQEc63BXM8EpQghOHPXD3gS7JMX9LpSj8
+QiHlHhG0JEFuaW5keWEgKFp6ei4uLikgPGFuMW5keWFAcHJvdG9uLm1lPoiTBBMW
+CgA7FiEEYaUB96JPxO3Y9mZe0CfOouK7gd0FAmfNw+gCGwMFCwkIBwICIgIGFQoJ
+CAsCBBYCAwECHgcCF4AACgkQ0CfOouK7gd3okgEA/anxZiqU5+L0DHtgimEns4af
+eIG7k/SndZP6BjaG5yMA/i7eUAGvcJEQRM/nWrlm2ybo7ZvCRNZhrVB62MeXJbsL
+uDgEZ83D6BIKKwYBBAGXVQEFAQEHQISLBI76huWls08U6/v9YCBti0dl3hmF8Vf2
+WssMKV4pAwEIB4h4BBgWCgAgFiEEYaUB96JPxO3Y9mZe0CfOouK7gd0FAmfNw+gC
+GwwACgkQ0CfOouK7gd2FxAEAuDZuBpIAugnwzdXU/EghoG+k+ky0T4sgWK0WOgDI
+8UQA/0ONAiSFnos37WyYJ/vY8khhZK4yzb76ooVstx+ZWgYC
+=IuYD
+-----END PGP PUBLIC KEY BLOCK-----`}
+    </pre>
+  );
+}
