@@ -2,18 +2,10 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X, Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
-import { useEffect } from "react";
+import { Menu, X } from "lucide-react";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <nav className="border-b border-border bg-background sticky top-0 z-50">
@@ -51,27 +43,9 @@ export function Navigation() {
             >
               Contact
             </Link>
-            {mounted && (
-              <button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="p-2 text-foreground hover:text-muted-foreground transition-colors"
-                aria-label="Toggle theme"
-              >
-                {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
-              </button>
-            )}
           </div>
 
           <div className="md:hidden flex items-center gap-2">
-            {mounted && (
-              <button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="p-2 text-foreground hover:text-muted-foreground transition-colors"
-                aria-label="Toggle theme"
-              >
-                {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
-              </button>
-            )}
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="p-2 text-foreground hover:text-muted-foreground transition-colors"

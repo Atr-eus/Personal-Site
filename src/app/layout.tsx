@@ -1,6 +1,6 @@
-import { ThemeProvider } from "next-themes";
 import { Navigation } from "@/components/nav";
 import "./globals.css";
+import Starfield from "@/components/space-bg";
 
 export default function RootLayout({
   children,
@@ -8,17 +8,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Navigation />
-          {children}
-        </ThemeProvider>
+    <html lang="en">
+      <body className="font-sans antialiased dark">
+        <Starfield />
+        <Navigation />
+        {children}
       </body>
     </html>
   );
