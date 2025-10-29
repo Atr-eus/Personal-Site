@@ -9,10 +9,21 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import React from "react";
+import { useState, useEffect } from "react";
 
 export default function Playground() {
-  const [content, setContent] = React.useState("");
+  const STORAGE_KEY = "markdown-playground-content";
+  const [content, setContent] = useState("");
+
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      setContent(saved);
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, content);
+  }, [content]);
 
   return (
     <div className="min-h-[calc(100vh-4rem)] w-full flex flex-col items-center justify-start pt-8 px-4 md:px-8 lg:px-16 bg-transparent">
