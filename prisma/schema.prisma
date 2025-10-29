@@ -1,11 +1,11 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
-  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+  provider   = "prisma-client"
+  output     = "../src/generated/prisma"
+  engineType = "client"
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -14,7 +14,7 @@ model Post {
   slug        String    @unique
   title       String
   summary     String?
-  content_md  String    @db.LongText
+  content_md  String
   published   Boolean   @default(false)
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt
@@ -22,7 +22,7 @@ model Post {
   language    Language  @relation(fields: [language_id], references: [id])
   tags        PostTag[]
 
-  @@index([language_id], map: "Post_language_id_fkey")
+  @@index([language_id])
 }
 
 model Language {
@@ -45,5 +45,5 @@ model PostTag {
   tag     Tag    @relation(fields: [tag_id], references: [id], onDelete: Cascade)
 
   @@id([post_id, tag_id])
-  @@index([tag_id], map: "PostTag_tag_id_fkey")
+  @@index([tag_id])
 }
