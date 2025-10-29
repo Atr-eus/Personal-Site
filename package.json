@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "postinstall": "prisma generate",
+    "prebuild": "mkdir -p ./certs && echo \"$AIVEN_CA_CERT\" > ./certs/ca.pem",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
