@@ -24,12 +24,10 @@ export async function BlogList({ lang, searchQuery = "" }: BlogListProps) {
     },
   });
 
-  // Filter by language
   if (lang !== "all") {
     posts = posts.filter((post) => post.language.code === lang);
   }
 
-  // Filter by search query
   if (searchQuery) {
     const query = searchQuery.toLowerCase();
     posts = posts.filter((post) => {
@@ -60,7 +58,6 @@ export async function BlogList({ lang, searchQuery = "" }: BlogListProps) {
           },
         );
 
-        // Estimate read time (roughly 200 words per minute)
         const wordCount = post.content_md.split(/\s+/).length;
         const readTime = Math.ceil(wordCount / 200);
 
