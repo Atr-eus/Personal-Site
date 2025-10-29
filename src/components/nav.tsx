@@ -108,7 +108,7 @@ export function Navigation() {
 
   return (
     <>
-      <div className="fixed top-4 right-4 z-40 hidden md:block">
+      <div className="fixed top-4 right-4 z-40">
         <Button
           variant="outline"
           onClick={() => setIsOpen(true)}
