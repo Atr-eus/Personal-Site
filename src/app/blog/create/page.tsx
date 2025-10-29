@@ -1,11 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { CreatePostForm } from "@/components/blog/create";
 
-// export const metadata = {
-//   title: "Create Post - Blog",
-//   description: "Create a new blog post",
-// };
-
 export default async function CreatePostPage() {
   const languages = await prisma.language.findMany();
 

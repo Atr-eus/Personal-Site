@@ -2,15 +2,16 @@ import { Suspense } from "react";
 import { BlogList } from "@/components/blog/list";
 import { BlogSearch } from "@/components/blog/search";
 import { BlogFilter } from "@/components/blog/filter";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Blog",
+  description: "Read my blog posts in English and Japanese.",
+};
 
 type BlogPageProps = {
   searchParams: Promise<{ q?: string; lang?: "all" | "en" | "jp" }>;
 };
-
-// export const metadata = {
-//   title: "Blog - Portfolio",
-//   description: "Read my blog posts in English and Japanese",
-// };
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
   const { q, lang = "all" } = await searchParams;
@@ -28,7 +29,6 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
   return (
     <main className="max-w-4xl mx-auto px-4 py-12 md:py-16">
-      {/* Header */}
       <div className="mb-12">
         <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-2">
           {title}
@@ -43,7 +43,6 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         <BlogFilter currentLang={lang} />
       </div>
 
-      {/* Blog List */}
       <Suspense
         fallback={<div className="text-muted-foreground">Loading...</div>}
       >
