@@ -3,6 +3,7 @@ import { BlogList } from "@/components/blog/list";
 import { BlogSearch } from "@/components/blog/search";
 import { BlogFilter } from "@/components/blog/filter";
 import { Metadata } from "next";
+import Loading from "@/components/loading";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -43,9 +44,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         <BlogFilter currentLang={lang} />
       </div>
 
-      <Suspense
-        fallback={<div className="text-muted-foreground">Loading...</div>}
-      >
+      <Suspense fallback={<Loading />}>
         <BlogList lang={lang} searchQuery={q} />
       </Suspense>
     </main>

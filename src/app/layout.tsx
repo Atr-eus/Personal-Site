@@ -1,6 +1,6 @@
-import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { Navigation } from "@/components/nav";
+import "./globals.css";
 
 export default function RootLayout({
   children,

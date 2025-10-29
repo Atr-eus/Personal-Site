@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Suspense } from "react";
 import { Metadata, ResolvingMetadata } from "next";
+import Loading from "@/components/loading";
 
 type BlogPostPageProps = {
   params: Promise<{ id: string }>;
@@ -61,9 +62,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const readTime = Math.ceil(wordCount / 200);
 
   return (
-    <Suspense
-      fallback={<div className="text-muted-foreground">Loading...</div>}
-    >
+    <Suspense fallback={<Loading />}>
       <main className="max-w-3xl mx-auto px-4 py-12 md:py-16">
         <Link
           href="/blog"
