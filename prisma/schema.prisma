@@ -20,9 +20,12 @@ model Post {
   updated_at  DateTime  @updatedAt
   language_id String
   language    Language  @relation(fields: [language_id], references: [id])
-  tags        PostTag[]
+  tags        Tag[]     @relation("PostTags")
 
   @@index([language_id])
+  @@index([title])
+  @@index([summary])
+  @@index([content_md])
 }
 
 model Language {
@@ -33,17 +36,7 @@ model Language {
 }
 
 model Tag {
-  id    String    @id @default(cuid())
-  name  String    @unique
-  posts PostTag[]
-}
-
-model PostTag {
-  post_id String
-  tag_id  String
-  post    Post   @relation(fields: [post_id], references: [id], onDelete: Cascade)
-  tag     Tag    @relation(fields: [tag_id], references: [id], onDelete: Cascade)
-
-  @@id([post_id, tag_id])
-  @@index([tag_id])
+  id    String @id @default(cuid())
+  name  String @unique
+  posts Post[] @relation("PostTags")
 }

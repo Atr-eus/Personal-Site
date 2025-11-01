@@ -13,11 +13,7 @@ export async function BlogList({ lang, searchQuery = "" }: BlogListProps) {
     },
     include: {
       language: true,
-      tags: {
-        include: {
-          tag: true,
-        },
-      },
+      tags: true,
     },
     orderBy: {
       created_at: "desc",
@@ -88,12 +84,12 @@ export async function BlogList({ lang, searchQuery = "" }: BlogListProps) {
                 <>
                   <span>·</span>
                   <div className="flex gap-2">
-                    {post.tags.slice(0, 2).map((postTag) => (
+                    {post.tags.slice(0, 2).map((tag) => (
                       <span
-                        key={postTag.tag.id}
+                        key={tag.id}
                         className="text-xs px-2 py-1 rounded bg-secondary text-secondary-foreground"
                       >
-                        {postTag.tag.name}
+                        {tag.name}
                       </span>
                     ))}
                     {post.tags.length > 2 && (
