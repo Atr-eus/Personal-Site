@@ -139,7 +139,10 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
             />
           ),
           a: ({ node, ...props }) => (
-            <a {...props} className="text-primary hover:underline" />
+            <a
+              {...props}
+              className="text-blue-400 hover:text-blue-300 hover:underline underline-offset-2 font-medium"
+            />
           ),
           table: ({ node, ...props }) => (
             <table
