@@ -1,6 +1,7 @@
 import { Navigation } from "@/components/nav";
 import "./globals.css";
 import Starfield from "@/components/space-bg";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 export default function RootLayout({
   children,
@@ -10,9 +11,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-sans antialiased dark">
-        <Starfield />
-        <Navigation />
-        {children}
+        <ScrollArea className="h-screen w-full">
+          <Starfield />
+          <Navigation />
+          {children}
+          <ScrollBar orientation="vertical" />
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
       </body>
     </html>
   );
