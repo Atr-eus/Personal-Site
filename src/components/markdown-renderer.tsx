@@ -4,6 +4,8 @@ import Markdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import rehypeHighlight from "rehype-highlight";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+
 import "katex/dist/katex.min.css";
 import "highlight.js/styles/atom-one-dark.css";
 
@@ -75,14 +77,18 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
             }
 
             return (
-              <code
-                {...props}
-                className={`block ${className} bg-secondary text-secondary-foreground p-4 rounded-lg font-mono text-sm overflow-x-auto mb-4`}
-              >
-                {children}
-              </code>
+              <ScrollArea className="w-full mb-4 rounded-lg">
+                <code
+                  {...props}
+                  className={`block ${className} bg-secondary text-secondary-foreground p-4 rounded-lg font-mono text-sm whitespace-pre`}
+                >
+                  {children}
+                </code>
+                <ScrollBar orientation="horizontal" />
+              </ScrollArea>
             );
           },
+
           ul: ({ node, ...props }) => (
             <ul
               {...props}
