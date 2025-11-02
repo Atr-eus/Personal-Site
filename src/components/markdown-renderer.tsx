@@ -59,20 +59,28 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
               className="text-base leading-relaxed text-foreground mb-4"
             />
           ),
-          code: ({ node, inline, ...props }: any) => {
-            if (inline) {
+
+          code: ({ node, className, children, ...props }) => {
+            const isInline = !className;
+
+            if (isInline) {
               return (
                 <code
                   {...props}
                   className="bg-secondary text-secondary-foreground px-2 py-1 rounded font-mono text-sm"
-                />
+                >
+                  {children}
+                </code>
               );
             }
+
             return (
               <code
                 {...props}
-                className="block bg-secondary text-secondary-foreground p-4 rounded-lg font-mono text-sm overflow-x-auto mb-4"
-              />
+                className={`block ${className} bg-secondary text-secondary-foreground p-4 rounded-lg font-mono text-sm overflow-x-auto mb-4`}
+              >
+                {children}
+              </code>
             );
           },
           ul: ({ node, ...props }) => (
