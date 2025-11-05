@@ -25,7 +25,6 @@ model Post {
   @@index([language_id])
   @@index([title])
   @@index([summary])
-  @@index([content_md])
 }
 
 model Language {
