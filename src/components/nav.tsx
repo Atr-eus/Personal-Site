@@ -47,7 +47,7 @@ export function Navigation() {
       description: "Read blog posts",
       icon: <BookOpen size={18} />,
       action: () => {
-        router.push("/blog");
+        window.open("https://an1ndya.gitbook.io/blog/", "_blank");
         setIsOpen(false);
       },
     },
